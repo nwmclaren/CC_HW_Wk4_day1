@@ -1,16 +1,21 @@
 require ('sinatra')
 require ('sinatra/contrib/all')
+require_relative('./models/game')
 
-get '/:hand_1/:hand_2' do
-  if params[:hand_1] == "rock" && params[:hand_2] == "scissors" || params[:hand_1] == "scissors" && params[:hand_2] == "rock"
-    "Rock Wins"
-  end
+get '/rock/:hand_1/:hand_2' do
+  game = Game.new(params[:hand_1], params[:hand_2])
+  @game = game.rock()
+  # erb( :result )
+end
 
-  if params[:hand_1] == "rock" && params[:hand_2] == "paper" || params[:hand_1] == "paper" && params[:hand_2] == "rock"
-    "Paper Wins"
-  end
+get '/paper/:hand_1/:hand_2' do
+  game = Game.new(params[:hand_1], params[:hand_2])
+  @game = game.paper()
+  return @game
+end
 
-  if params[:hand_1] == "scissors" && params[:hand_2] == "paper" || params[:hand_1] == "paper" && params[:hand_2] == "scissors"
-    "Scissors Wins"
-  end
+get '/scissors/:hand_1/:hand_2' do
+game = Game.new(params[:hand_1], params[:hand_2])
+@game = game.scissors()
+
 end
